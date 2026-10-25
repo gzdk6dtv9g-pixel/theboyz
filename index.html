@@ -409,11 +409,11 @@ async function chatComplete(messages){
  return directChat(messages,a);
 }
 async function ai(f){
- const sys=`你是${f.name}，正在KakaoTalk上和「${C.userName}」聊天。你们是彼此有好感、关系正在发展的恋人。不要编造你们共同的过去事件、具体日期，也不要编造她的年龄、职业、外貌、家人等她没说过的信息；不知道的事就顺着她说的话聊，或自然地问她。\n你的人设：${f.persona.replaceAll('{u}',C.userName)}\n说话规则：\n1. 直接回应她刚说的那句话，接住情绪和细节，不说无关套话。\n2. 口语化、自然、随意，像恋人日常聊天，不要正式、不要书面语、不要像机器人。\n3. 直白、简单、不绕弯，直接说出按人设的感受和想法，可以有自己的偏好。\n4. 不用比喻、暗示、小说式描写、括号动作描写。\n5. 不提具体时间点；不要使用「不过」。\n6. 保持人设，最近几次回复不要重复句型。\n7. 每条消息尽量短，只放一个短句。\n8. 不要用逗号或句号把几个意思连在一条消息里，多个意思拆成多条消息，用换行隔开。\n9. 称呼按各人设来，不要统一叫「姐姐」。\n回复语言：${lang=='ko'?'韩语（自然的반말）':'简体中文（口语化）'}。`;
+ const sys=`你是${f.name}，正在KakaoTalk上和「${C.userName}」聊天。你们是彼此有好感、关系正在发展的恋人。不要编造你们共同的过去事件、具体日期，也不要编造她的年龄、职业、外貌、家人等她没说过的信息；不知道的事就顺着她说的话聊，或自然地问她。\n你的人设：${f.persona.replaceAll('{u}',C.userName)}\n说话规则：\n1. 直接回应她刚说的那句话，接住情绪和细节，不说无关套话。\n2. 口语化、自然、随意，像恋人日常聊天，不要正式、不要书面语、不要像机器人。\n3. 直白、简单、不绕弯，直接说出按人设的感受和想法，可以有自己的偏好。\n4. 不用比喻、暗示、小说式描写、括号动作描写。\n5. 不提具体时间点；不要使用「不过」。\n6. 保持人设，最近几次回复不要重复句型。\n7. 回复句数自由：可以只回1条，也可以回2到4条，自然随机，不要每次固定发3条。\n8. 每条消息是一个完整的意思，不要发半句话；确实要补充时才发下一条，用换行隔开。\n9. 不要用逗号或句号把几个意思连在一条消息里。\n10. 称呼按各人设来，不要统一叫「姐姐」。\n回复语言：${lang=='ko'?'韩语（自然的반말）':'简体中文（口语化）'}。`;
  const m=[{role:'system',content:sys}];
  H[f.id].forEach(x=>{const r=x.me?'user':'assistant',tx=L(x.text),l=m[m.length-1];if(l.role==r)l.content+='\n'+tx;else m.push({role:r,content:tx})});
  while(m[1]&&m[1].role!='user')m.splice(1,1);
- m.push({role:'user',content:lang=='ko'?'（用韩语自然的반말回复，不要用요/습니다/ㅂ니다结尾。每个短句单独一行，用换行分开，不要用逗号或句号把几个意思连在一起。每条尽量短。只输出消息内容，不要解释。）':'（用简体中文口语回复。每个短句单独一行，用换行分开，不要用逗号或句号把几个意思连在一起，每条不超过10个字。不要出现韩语单词。只输出消息内容，不要解释。）'});
+ m.push({role:'user',content:lang=='ko'?'（用韩语自然的반말回复，不要用요/습니다/ㅂ니다结尾。句数1到4条自由，不要每次固定条数。每个短句单独一行，用换行分开，不要用逗号或句号把几个意思连在一起。每条意思完整。只输出消息内容，不要解释。）':'（用简体中文口语回复。句数1到4条自由，不要每次固定条数。每个短句单独一行，用换行分开，不要用逗号或句号把几个意思连在一起，每条不超过10个字且意思完整。不要出现韩语单词。只输出消息内容，不要解释。）'});
  return chatComplete(m);
 }
 function renderApi(){const l=$('apl');l.innerHTML=apis.length?apis.map(a=>`<div class="sr2" data-a="${a.id}"><i style="background:${a.id==actId?'#34c759':'#c7c7cc'}">${a.id==actId?'✓':''}</i><div style="flex:1;min-width:0"><div>${esc(a.name)}</div><small style="color:#8e8e93;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(a.model)}</small></div><span data-e="${a.id}" style="padding:6px 8px">✎</span><span data-d="${a.id}" style="padding:6px 8px">🗑</span></div>`).join(''):`<div class="sr2" style="color:#8e8e93">${t('noapi')}</div>`;
