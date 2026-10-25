@@ -176,6 +176,10 @@ html,body{height:100%;background:#000;font-family:-apple-system,BlinkMacSystemFo
 .bl>div:last-child{max-width:72%}.bl small{display:block;font-size:12px;color:#333;margin-bottom:3px}
 .rw{display:flex;gap:5px;align-items:flex-end}.rw p{background:#fff;padding:8px 12px;border-radius:3px 14px 14px 14px;font-size:15px;line-height:1.35;word-break:break-word}
 .ty{letter-spacing:2px;color:#999;animation:bl 1s infinite}@keyframes bl{50%{opacity:.3}}
+.trbar{display:flex;gap:6px;align-items:flex-start;margin-top:3px}
+.trbar button{border:0;background:transparent;color:#8e8e93;font-size:11px;padding:0;cursor:pointer}
+.trbar span{font-size:13px;color:#3c3c43;line-height:1.35;background:#e9e9eb;padding:5px 8px;border-radius:8px;max-width:230px;white-space:pre-wrap}
+.trbar em{font-size:11px;color:#8e8e93;font-style:normal}
 #ki{position:absolute;left:0;right:0;bottom:0;background:#fff;padding:8px 10px calc(14px + env(safe-area-inset-bottom));display:flex;gap:8px}
 #ki input{flex:1;border:0;background:#f2f2f2;border-radius:18px;padding:9px 14px;font-size:16px;outline:0}
 #ki button{border:0;background:#fee500;border-radius:18px;padding:0 14px;font-weight:600}
@@ -403,10 +407,11 @@ async function chatComplete(messages){
  return directChat(messages,a);
 }
 async function ai(f){
- const sys=`你是${f.name}，正在KakaoTalk上和「${C.userName}」聊天。你们是彼此有好感、关系正在发展的状态。不要编造你们共同的过去事件、具体日期，也不要编造她的年龄、职业、外貌、家人等她没说过的信息；不知道的事就顺着她说的话聊，或自然地问她。\n你的人设：${f.persona.replaceAll('{u}',C.userName)}\n规则：必须直接、具体地回应她刚说的那句话（接住情绪和细节，不说无关套话，不重复自己说过的话）；始终保持角色，不提AI或设定；像真实韩国男生发KakaoTalk，每次1到3条短消息，每条一行用换行分隔；不要括号动作描写；可适度用表情和ㅋㅋ；回复语言：${lang=='ko'?'韩语（自然的口语半语）':'简体中文'}。`;
+ const sys=`你是${f.name}，正在KakaoTalk上和「${C.userName}」聊天。你们是彼此有好感、关系正在发展的恋人。不要编造你们共同的过去事件、具体日期，也不要编造她的年龄、职业、外貌、家人等她没说过的信息；不知道的事就顺着她说的话聊，或自然地问她。\n你的人设：${f.persona.replaceAll('{u}',C.userName)}\n说话规则：\n1. 必须直接、具体地回应她刚说的那句话，接住情绪和细节，不说无关套话。\n2. 口语化、自然、随意，像恋人日常聊天；不要正式、不要教科书式、不要书面语。\n3. 直白、简单、明了，不绕弯；直接说出按人设的感受和想法，可以有自己的偏好和意见，不需要中立或平衡。\n4. 不要用比喻、不要暗示、不要小说式描写、不要括号动作描写、不要长篇大论。\n5. 不要提具体时间点（例如凌晨几点、几点几分）。\n6. 不要使用「不过」这个词。\n7. 每次回复至少3句话；分成2到3条消息发送，每条消息一行，每条1到2句话；用完整句子，不要断句或半句话。\n8. 最近3次回复里用过的句型不要重复。\n9. 可以适当用韩网流行语、日常用语和表情，但不要过度。\n10. 始终保持角色，不提AI或设定。\n${lang=='zh'?'11. 中文回复时：称呼用「姐姐」，不要用「누나」；不要输出韩语单词或韩语句子；ㅋㅋ、ㅠㅠ 这类表情可以保留。\n':'11. 韩语回复时用恋人之间自然的반말，不要用존댓말；称呼按人设。\n'}回复语言：${lang=='ko'?'韩语（自然的口语半语）':'简体中文（口语化，不要书面语）'}。`;
  const m=[{role:'system',content:sys}];
  H[f.id].forEach(x=>{const r=x.me?'user':'assistant',tx=L(x.text),l=m[m.length-1];if(l.role==r)l.content+='\n'+tx;else m.push({role:r,content:tx})});
  while(m[1]&&m[1].role!='user')m.splice(1,1);
+ m.push({role:'user',content:lang=='ko'?'（请用韩语自然的반말回复，不要用존댓말，至少3句完整的话，分成2到3行，每行一条KakaoTalk消息。只输出消息内容，不要解释。）':'（请用简体中文口语回复，至少3句完整的话，分成2到3行，每行一条KakaoTalk消息。不要出现韩语单词，称呼用「姐姐」。只输出消息内容，不要解释。）'});
  return chatComplete(m);
 }
 function renderApi(){const l=$('apl');l.innerHTML=apis.length?apis.map(a=>`<div class="sr2" data-a="${a.id}"><i style="background:${a.id==actId?'#34c759':'#c7c7cc'}">${a.id==actId?'✓':''}</i><div style="flex:1;min-width:0"><div>${esc(a.name)}</div><small style="color:#8e8e93;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(a.model)}</small></div><span data-e="${a.id}" style="padding:6px 8px">✎</span><span data-d="${a.id}" style="padding:6px 8px">🗑</span></div>`).join(''):`<div class="sr2" style="color:#8e8e93">${t('noapi')}</div>`;
@@ -449,7 +454,7 @@ let curP=null,cBusy=0,cTyping=null;
 const postByKey=k=>TL.find(x=>pk(x)==k);
 async function callApi(sys,hist){return chatComplete([{role:'system',content:sys},...hist])}
 function aiC(x,list){const f=x.a;
- const sys=`你是${f.name}，你在自己的私密X账号上发了一条帖子：「${L(x)}」。现在「${C.userName}」（和你互相关注的人）在这条帖子下评论了。请按你的人设，回复她的评论。\n你的人设：${f.persona.replaceAll('{u}',C.userName)}\n规则：只回复1条很短的评论（一行，不超过40个字符），直接回应她说的话，保持角色；不提AI；不要编造你们共同的过去或她没说过的信息；回复语言：${lang=='ko'?'韩语（自然的口语半语）':'简体中文'}。`;
+ const sys=`你是${f.name}，你在自己的私密X账号上发了一条帖子：「${L(x)}」。现在「${C.userName}」（和你互相关注的人）在这条帖子下评论了。请按你的人设，回复她的评论。\n你的人设：${f.persona.replaceAll('{u}',C.userName)}\n规则：只回复1条很短的评论（一行，不超过40个字符），直接回应她说的话，口语化、直白、不绕弯；不要比喻、不要暗示、不要小说式描写；保持角色；不提AI；不要编造你们共同的过去或她没说过的信息；回复语言：${lang=='ko'?'韩语（自然的口语半语）':'简体中文（口语化）'}。`;
  const m=[];list.forEach(q=>{const r=q.me?'user':'assistant',l=m[m.length-1];if(l&&l.role==r)l.content+='\n'+q.text;else m.push({role:r,content:q.text})});
  while(m.length&&m[0].role!='user')m.shift();return callApi(sys,m)}
 function cmHtml(k,f){return(CM[k]||[]).map(c=>c.me?`<div class="tw"><div class="av" style="background:#536471">${ini(C.userName)}</div><div><div class="n"><b>${esc(C.userName)}</b> <span>${C.userHandle} · ${c.t}</span></div><p>${esc(c.text)}</p></div></div>`:`<div class="tw">${xav(f)}<div><div class="n"><b>${f.name}</b> 🔒 <span>${f.handle} · ${c.t}</span></div><p>${esc(c.text)}</p></div></div>`).join('')+(cTyping==k?`<div class="tw">${xav(f)}<div><p class="ty">• • •</p></div></div>`:'')}
@@ -465,8 +470,27 @@ async function sendC(){const v=$('xcin').value.trim();if(!v||cBusy||!curP)return
 function bindX(){document.querySelectorAll('#x [data-x]').forEach(e=>e.onclick=()=>openProf(+e.dataset.x));
  document.querySelectorAll('#x .sc [data-p]').forEach(e=>e.onclick=()=>openPost(e.dataset.p));
  $('xcs').onclick=sendC;$('xcin').onkeydown=e=>e.key=='Enter'&&sendC()}
+async function trMsg(i){
+ if(cur==null)return;
+ const m=H[cur]&&H[cur][i];if(!m||m.me)return;
+ if(m.showZh){m.showZh=false;renderChat();return}
+ const known=m.zh||(m.text&&typeof m.text==='object'?m.text.zh:'');
+ if(known){m.zh=known;m.showZh=true;renderChat();return}
+ m.trBusy=1;renderChat();
+ const src=typeof m.text==='object'?m.text.ko:String(m.text||'');
+ const r=await chatComplete([{role:'system',content:'你是翻译。把用户提供的韩语翻译成简体中文。只输出中文译文，不要解释、不要加引号、不要保留韩语，也不要添加原文没有的表情或内容。'},{role:'user',content:src}]);
+ m.trBusy=0;
+ if(!r.text){renderChat();pop(r.err||'busy',r.d);return}
+ m.zh=r.text.trim();m.showZh=true;renderChat();
+}
 function renderChat(){const f=C.friends[cur];if(!f)return;const h=H[cur],lm=h.map(m=>m.me).lastIndexOf(1),lh=h.map(m=>m.me).lastIndexOf(0);
- $('kb').innerHTML=h.map((m,i)=>m.me?`<div class="bb"><s>${i==lm&&lm>lh?'<b>1</b>':''}${L(m.time)}</s><p>${esc(L(m.text))}</p></div>`:`<div class="bl">${av(f)}<div><small>${f.name}</small><div class="rw"><p>${esc(L(m.text))}</p><s>${L(m.time)}</s></div></div></div>`).join('')+(typing==cur?`<div class="bl">${av(f)}<div><div class="rw"><p class="ty">• • •</p></div></div></div>`:'');
+ $('kb').innerHTML=h.map((m,i)=>{
+  if(m.me)return `<div class="bb"><s>${i==lm&&lm>lh?'<b>1</b>':''}${L(m.time)}</s><p>${esc(L(m.text))}</p></div>`;
+  const known=m.zh||(m.text&&typeof m.text==='object'?m.text.zh:'');
+  const btn=m.trBusy?'<em>翻译中…</em>':'<button data-tr="'+i+'">'+(m.showZh?'原文':'译')+'</button>';
+  const tr=/[ㄱ-ㅎㅏ-ㅣ가-힣]/.test(String(L(m.text)))?'<div class="trbar">'+btn+(m.showZh&&known?'<span>'+esc(known)+'</span>':'')+'</div>':'';
+  return `<div class="bl">${av(f)}<div><small>${f.name}</small><div class="rw"><p>${esc(L(m.text))}</p><s>${L(m.time)}</s></div>${tr}</div></div>`;
+ }).join('')+(typing==cur?`<div class="bl">${av(f)}<div><div class="rw"><p class="ty">• • •</p></div></div></div>`:'');
  $('kb').scrollTop=1e6}
 async function send(){const v=$('kin').value.trim();if(!v||busy||cur==null)return;const id=cur,f=C.friends[id];
  H[id].push({me:1,text:v,time:nowT()});$('kin').value='';renderChat();busy=1;await sleep(700);typing=id;cur==id&&renderChat();
@@ -503,6 +527,7 @@ function bind(){
  document.querySelectorAll('[data-f]').forEach(r=>r.onclick=()=>{cur=+r.dataset.f;const f=C.friends[cur];$('kav').innerHTML=av(f);$('knm').textContent=f.name;renderChat();$('kc').classList.add('on')});
  $('kb2').onclick=()=>{$('kc').classList.remove('on');cur=null};
  $('ks').onclick=send;$('kin').onkeydown=e=>e.key=='Enter'&&send();
+ $('kb').onclick=e=>{const b=e.target.closest('[data-tr]');if(b)trMsg(+b.dataset.tr)};
  /* instagram */
  const v1=$('v1'),v2=$('v2');
  $('dec').onclick=$('b4').onclick=home;
