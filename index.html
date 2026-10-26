@@ -251,9 +251,7 @@ video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 #xci input{flex:1;border:0;background:#16181c;color:#fff;border-radius:18px;padding:9px 14px;font-size:16px;outline:0}#xci button{border:0;background:#1d9bf0;color:#fff;border-radius:18px;padding:0 14px;font-weight:600}[data-p]{cursor:pointer}
 .bk{color:#007aff;font-size:17px;padding:8px 16px;cursor:pointer}
 /* kakao 男主主页 + 记忆/事件/人格模块 */
-#kpro{background:#f2f2f7;color:#000;z-index:24}#kmod{background:#f2f2f7;color:#000;z-index:26}
-.kp-tb{position:sticky;top:0;background:#f2f2f7;z-index:2;padding:calc(var(--top) + 8px) 16px 8px;display:flex;align-items:center;gap:10px;font-weight:600;font-size:17px;border-bottom:.5px solid #e5e5ea}
-.kp-scroll{position:absolute;inset:0;overflow:auto;padding-bottom:70px}
+#kpro{background:#f2f2f7;color:#000;z-index:30}#kmod{background:#f2f2f7;color:#000;z-index:50}#kc{z-index:40}
 .kp-hd{text-align:center;padding:20px 16px 8px}.kp-hd .av{width:80px;height:80px;border-radius:27px;margin:0 auto 10px;font-size:32px}
 .kp-hd h2{font-size:21px;margin:6px 0 2px}.kp-hd small{color:#8e8e93;font-size:13px}
 .kp-act{display:flex;gap:10px;padding:14px 16px 6px}
@@ -266,8 +264,6 @@ video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .seg span.on{background:#007aff;border-color:#007aff;color:#fff;font-weight:600}
 .mr{display:flex;align-items:center;gap:12px;padding:13px 16px;font-size:16px;border-bottom:.5px solid #e5e5ea;cursor:pointer}.mr:last-child{border:0}
 .mr small{color:#8e8e93;font-size:12px;display:block}.mr em{margin-left:auto;color:#c7c7cc;font-style:normal;font-size:18px}
-.km-tb{position:sticky;top:0;background:#f2f2f7;z-index:2;padding:calc(var(--top) + 8px) 16px 8px;display:flex;align-items:center;gap:10px;font-weight:600;font-size:17px;border-bottom:.5px solid #e5e5ea}
-.km-scroll{position:absolute;inset:0;overflow:auto;padding-bottom:80px}
 .mit{padding:13px 16px;border-bottom:.5px solid #e5e5ea;font-size:15px;line-height:1.4}.mit:last-child{border:0}
 .mit .cat{display:inline-block;background:#e8f1ff;color:#007aff;border-radius:6px;font-size:11px;padding:2px 7px;margin-right:6px;vertical-align:1px}
 .mit .pend{color:#b25000;font-size:11px;margin-right:6px}
@@ -277,14 +273,21 @@ video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .tf{width:100%;border:0;border-radius:10px;background:#fff;font-size:15px;padding:12px;outline:0;color:#000;margin-bottom:10px;min-height:70px;resize:vertical;display:block}
 .fsel{width:100%;border:0;border-radius:10px;background:#fff;font-size:15px;padding:12px;outline:0;color:#000;margin-bottom:10px;-webkit-appearance:none;appearance:none;display:block}
 .chk{display:flex;align-items:center;gap:8px;font-size:14px;color:#3c3c43;margin:2px 0 12px}.chk input{width:18px;height:18px}
+.kp-bar{padding:10px 16px;display:flex;align-items:center;gap:8px;font-size:17px;font-weight:600;border-bottom:.5px solid #e5e5ea}
+.kp-bar b{cursor:pointer;font-size:22px;font-weight:300;color:#007aff;line-height:1;width:26px;text-align:center}
+.ktab{position:absolute;left:0;right:0;bottom:0;height:calc(54px + env(safe-area-inset-bottom));background:#fff;border-top:.5px solid #ccc;display:flex;justify-content:space-around;align-items:center;font-size:13px;color:#8e8e93;z-index:10}
+.ktab div{text-align:center;cursor:pointer;flex:1}.ktab div.on{color:#000;font-weight:700}
+.kr b{display:block;font-size:16px;font-weight:500}
+.kprev{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#999;font-size:13px}
+.kh-menu{margin-left:auto;cursor:pointer;font-size:18px;color:#000;padding:4px}
 </style></head>
 <body><div id="ph"></div>
 <script>
 const C=CONFIG,I=C.instagram,S=C.spotify,P=document.getElementById('ph');
 let lang='ko';try{lang=localStorage.getItem('lg')||'ko'}catch(e){}
 const L=x=>x&&typeof x=='object'&&!Array.isArray(x)?(x[lang]??x.ko):x;
-const T={ko:{unlock:'위로 쓸어서 열기',wx:'날씨',cal:'캘린더',srch:'검색',noev:'일정 없음',hi:'최고',lo:'최저',rec:'최근 통화',fav:'즐겨찾기',ct:'연락처',kp:'키패드',out:'발신',inn:'수신',mis:'부재중',fr:'친구',msg:'메시지 입력',snd:'전송',cls:'닫기',priv:'비공개 계정 · 팔로워 승인제',vcall:'Instagram 비디오 통화',ring:'전화 오는 중…',vin:'메시지 보내기…',songs:'곡',st:'설정',air:'비행기 모드',wifi:'Wi-Fi',bt:'블루투스',nt:'알림',gen:'일반',dsp:'디스플레이 및 밝기',lr:'언어 및 지역',lg:'언어',ak:'AI API',rcm:'추천',cmts:'댓글',cmt:'댓글 달기…',now:'방금',pst:'게시물',mut:(n)=>`${n}님과 서로 팔로우`,nm:'이름',url:'URL (예: https://example.com)',key:'API 키',ml:'모델 불러오기',ld:'불러오는 중…',mdl:'모델',noapi:'저장된 API가 없어요',fail:'실패',cfm:'삭제할까요?',need:'URL, API 키, 모델을 입력하세요',got:'개 모델',sv:'저장',svd:'저장됨 ✓',busy:'상대방이 바쁘거나 쉬는 중이에요.\n잠시 후 다시 와주세요',nokey:'AI API를 설정해주세요.\n설정 → AI API',pub:'공용 크레딧',own:'내 API',quota:'오늘의 공용 크레딧을 다 썼어요.\n설정에서 내 API를 넣으면 계속 대화할 수 있어요',slow:'너무 빨라요. 잠깐만 기다려 주세요',left:'남은 횟수',relay:'프록시 경유 (CORS 오류 시)',keyerr:'API 키가 올바르지 않아요',down:'AI 서버에 연결할 수 없어요',code:'액세스 코드(선택)',codeerr:'액세스 코드가 올바르지 않아요',ok:'확인',folg:'팔로잉',fols:'팔로워',ago:(m)=>m<60?`${m}분 전`:m<1440?`${Math.round(m/60)}시간 전`:`${Math.round(m/1440)}일 전`,dt:(d)=>`10월 ${d}일`,chat:'채팅',call:'통화',stage:'관계 단계',mem:'그의 기억',ev:'함께한 일',profile:'인격 프로필',add:'추가',edit:'편집',del:'삭제',cnt:'개',emptyMem:'아직 중요한 기억이 없어요',emptyEv:'아직 함께한 일이 없어요',emptyNote:'아직 추가 설정이 없어요',orig:'원본 설정',custom:'내 추가 설정',notePh:'추가 설정을 입력…',memPh:'그녀에 대한 기억을 적어…',evPh:'함께한 일을 적어…',cat:'분류',pend:'확인 필요',extract:'지금 기억 정리',extracting:'정리 중…'},
-zh:{unlock:'向上滑动解锁',wx:'天气',cal:'日历',srch:'搜索',noev:'今天无日程',hi:'最高',lo:'最低',rec:'最近通话',fav:'个人收藏',ct:'通讯录',kp:'拨号键盘',out:'呼出',inn:'呼入',mis:'未接',fr:'好友',msg:'输入消息',snd:'发送',cls:'关闭',priv:'私密账号 · 需批准关注',vcall:'Instagram 视频通话',ring:'来电中…',vin:'发消息…',songs:'首',st:'设置',air:'飞行模式',wifi:'无线局域网',bt:'蓝牙',nt:'通知',gen:'通用',dsp:'显示与亮度',lr:'语言与地区',lg:'语言',ak:'AI 接口(API)',rcm:'为你推荐',cmts:'评论',cmt:'发表评论…',now:'刚刚',pst:'帖子',mut:(n)=>`与 ${n} 互相关注`,nm:'名称',url:'URL (如 https://example.com)',key:'API 密钥',ml:'拉取模型',ld:'拉取中…',mdl:'模型',noapi:'还没有保存的 API',fail:'失败',cfm:'确定删除？',need:'请填写 URL、密钥和模型',got:'个模型',sv:'保存',svd:'已保存 ✓',busy:'对方在忙碌/休息中\n一会儿再来吧',nokey:'请先配置 AI 接口\n设置 → AI 接口(API)',pub:'公共额度',own:'自己的 API',quota:'今天的公共额度用完了。\n在设置里填入自己的 API 可以继续聊',slow:'发得太快了，稍等一下',left:'剩余次数',relay:'通过代理转发（CORS 报错时勾选）',keyerr:'API 密钥不正确',down:'连不上 AI 服务',code:'访问码(可选)',codeerr:'访问码不正确',ok:'好',folg:'正在关注',fols:'关注者',ago:(m)=>m<60?`${m}分钟前`:m<1440?`${Math.round(m/60)}小时前`:`${Math.round(m/1440)}天前`,dt:(d)=>`10月${d}日`,chat:'聊天',call:'通话',stage:'关系阶段',mem:'他的记忆',ev:'共同事件',profile:'人格档案',add:'新增',edit:'编辑',del:'删除',cnt:'条',emptyMem:'还没有重要记忆',emptyEv:'还没有共同事件',emptyNote:'还没有补充设定',orig:'原始设定',custom:'我的补充设定',notePh:'输入补充设定…',memPh:'写下关于她的事…',evPh:'写下共同事件…',cat:'分类',pend:'待确认',extract:'现在整理记忆',extracting:'整理中…'}};
+const T={ko:{unlock:'위로 쓸어서 열기',wx:'날씨',cal:'캘린더',srch:'검색',noev:'일정 없음',hi:'최고',lo:'최저',rec:'최근 통화',fav:'즐겨찾기',ct:'연락처',kp:'키패드',out:'발신',inn:'수신',mis:'부재중',fr:'친구',msg:'메시지 입력',snd:'전송',cls:'닫기',priv:'비공개 계정 · 팔로워 승인제',vcall:'Instagram 비디오 통화',ring:'전화 오는 중…',vin:'메시지 보내기…',songs:'곡',st:'설정',air:'비행기 모드',wifi:'Wi-Fi',bt:'블루투스',nt:'알림',gen:'일반',dsp:'디스플레이 및 밝기',lr:'언어 및 지역',lg:'언어',ak:'AI API',rcm:'추천',cmts:'댓글',cmt:'댓글 달기…',now:'방금',pst:'게시물',mut:(n)=>`${n}님과 서로 팔로우`,nm:'이름',url:'URL (예: https://example.com)',key:'API 키',ml:'모델 불러오기',ld:'불러오는 중…',mdl:'모델',noapi:'저장된 API가 없어요',fail:'실패',cfm:'삭제할까요?',need:'URL, API 키, 모델을 입력하세요',got:'개 모델',sv:'저장',svd:'저장됨 ✓',busy:'상대방이 바쁘거나 쉬는 중이에요.\n잠시 후 다시 와주세요',nokey:'AI API를 설정해주세요.\n설정 → AI API',pub:'공용 크레딧',own:'내 API',quota:'오늘의 공용 크레딧을 다 썼어요.\n설정에서 내 API를 넣으면 계속 대화할 수 있어요',slow:'너무 빨라요. 잠깐만 기다려 주세요',left:'남은 횟수',relay:'프록시 경유 (CORS 오류 시)',keyerr:'API 키가 올바르지 않아요',down:'AI 서버에 연결할 수 없어요',code:'액세스 코드(선택)',codeerr:'액세스 코드가 올바르지 않아요',ok:'확인',folg:'팔로잉',fols:'팔로워',ago:(m)=>m<60?`${m}분 전`:m<1440?`${Math.round(m/60)}시간 전`:`${Math.round(m/1440)}일 전`,dt:(d)=>`10월 ${d}일`,chat:'채팅',chats:'채팅',call:'통화',stage:'관계 단계',mem:'그의 기억',ev:'함께한 일',profile:'인격 프로필',add:'추가',edit:'편집',del:'삭제',cnt:'개',emptyMem:'아직 중요한 기억이 없어요',emptyEv:'아직 함께한 일이 없어요',emptyNote:'아직 추가 설정이 없어요',orig:'원본 설정',custom:'내 추가 설정',notePh:'추가 설정을 입력…',memPh:'그녀에 대한 기억을 적어…',evPh:'함께한 일을 적어…',cat:'분류',pend:'확인 필요',extract:'지금 기억 정리',extracting:'정리 중…'},
+zh:{unlock:'向上滑动解锁',wx:'天气',cal:'日历',srch:'搜索',noev:'今天无日程',hi:'最高',lo:'最低',rec:'最近通话',fav:'个人收藏',ct:'通讯录',kp:'拨号键盘',out:'呼出',inn:'呼入',mis:'未接',fr:'好友',msg:'输入消息',snd:'发送',cls:'关闭',priv:'私密账号 · 需批准关注',vcall:'Instagram 视频通话',ring:'来电中…',vin:'发消息…',songs:'首',st:'设置',air:'飞行模式',wifi:'无线局域网',bt:'蓝牙',nt:'通知',gen:'通用',dsp:'显示与亮度',lr:'语言与地区',lg:'语言',ak:'AI 接口(API)',rcm:'为你推荐',cmts:'评论',cmt:'发表评论…',now:'刚刚',pst:'帖子',mut:(n)=>`与 ${n} 互相关注`,nm:'名称',url:'URL (如 https://example.com)',key:'API 密钥',ml:'拉取模型',ld:'拉取中…',mdl:'模型',noapi:'还没有保存的 API',fail:'失败',cfm:'确定删除？',need:'请填写 URL、密钥和模型',got:'个模型',sv:'保存',svd:'已保存 ✓',busy:'对方在忙碌/休息中\n一会儿再来吧',nokey:'请先配置 AI 接口\n设置 → AI 接口(API)',pub:'公共额度',own:'自己的 API',quota:'今天的公共额度用完了。\n在设置里填入自己的 API 可以继续聊',slow:'发得太快了，稍等一下',left:'剩余次数',relay:'通过代理转发（CORS 报错时勾选）',keyerr:'API 密钥不正确',down:'连不上 AI 服务',code:'访问码(可选)',codeerr:'访问码不正确',ok:'好',folg:'正在关注',fols:'关注者',ago:(m)=>m<60?`${m}分钟前`:m<1440?`${Math.round(m/60)}小时前`:`${Math.round(m/1440)}天前`,dt:(d)=>`10月${d}日`,chat:'聊天',chats:'对话',call:'通话',stage:'关系阶段',mem:'他的记忆',ev:'共同事件',profile:'人格档案',add:'新增',edit:'编辑',del:'删除',cnt:'条',emptyMem:'还没有重要记忆',emptyEv:'还没有共同事件',emptyNote:'还没有补充设定',orig:'原始设定',custom:'我的补充设定',notePh:'输入补充设定…',memPh:'写下关于她的事…',evPh:'写下共同事件…',cat:'分类',pend:'待确认',extract:'现在整理记忆',extracting:'整理中…'}};
 const t=k=>T[lang][k];
 const $=i=>document.getElementById(i),esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
 const ini=n=>(n||'?').trim()[0].toUpperCase(),sleep=ms=>new Promise(r=>setTimeout(r,ms));
@@ -340,11 +343,13 @@ P.innerHTML=`
  <div class="dock glass">${DK.map(a=>`<span data-o="${a[1]}">${IC[a[0]]()}</span>`).join('')}</div></div>
 <div class="scr app" id="ph2"><div class="sc"><div class="hd">${t('rec')}</div>${C.calls.map(g=>`<div class="cg">${L(g.group)}</div>`+g.items.map(it=>{const k={发:['out',''],收:['inn',''],未接:['mis','m']}[it.type]||['out',''];return `<div class="cr"><div><b class="${k[1]}">${C.contactName}${it.count>1?` (${it.count})`:''}</b><small>${t(k[0])}</small></div><em>${it.time}</em></div>`}).join('')).join('')}</div>
  <div class="tab"><div><span>★</span>${t('fav')}</div><div class="a"><span>🕘</span>${t('rec')}</div><div><span>👤</span>${t('ct')}</div><div><span>⌨</span>${t('kp')}</div></div><div class="hb"></div></div>
-<div class="scr app" id="kk"><div class="sc"><div class="hd">${t('fr')}</div>
- <div class="kr" id="me"><div class="av" style="background:#90a4ae">${ini(C.userName)}</div><div>${C.userName}</div></div><div class="cg">${t('fr')} ${C.friends.length}</div>
- ${C.friends.map(f=>`<div class="kr" data-f="${f.id}">${av(f)}<div>${f.name}<small>${L(f.status)}</small></div></div>`).join('')}</div>
+<div class="scr app" id="kk"><div class="sc"><div class="hd" id="kkh">${t('chats')}</div>
+ <div id="kkc"></div>
+ <div id="kkf" style="display:none"><div class="kr" id="me"><div class="av" style="background:#90a4ae">${ini(C.userName)}</div><div>${C.userName}</div></div><div class="cg">${t('fr')} ${C.friends.length}</div>${C.friends.map(f=>`<div class="kr" data-f="${f.id}">${av(f)}<div>${f.name}<small>${L(f.status)}</small></div></div>`).join('')}</div>
+</div>
+ <div class="ktab"><div id="kt-chat" class="on">${t('chats')}</div><div id="kt-fr">${t('fr')}</div></div>
  <div class="full" id="kp"><div class="av" style="background:#90a4ae">${ini(C.userName)}</div><h2>${C.userName}</h2><p style="margin-top:80px;font-size:15px;cursor:pointer" id="kx">✕ ${t('cls')}</p></div>
- <div class="full" id="kc"><div class="kh"><span id="kb2" style="font-size:26px;cursor:pointer">‹</span><span id="kav"></span><span id="knm"></span></div><div id="kb"></div><div id="ki"><input id="kin" placeholder="${t('msg')}" enterkeyhint="send"><button id="ks">${t('snd')}</button></div></div><div class="full" id="kpro"></div><div class="full" id="kmod"></div><div class="hb"></div></div>
+ <div class="full" id="kc"><div class="kh"><span id="kb2" style="font-size:26px;cursor:pointer">‹</span><span id="kav"></span><span id="knm"></span><span id="km2" class="kh-menu">☰</span></div><div id="kb"></div><div id="ki"><input id="kin" placeholder="${t('msg')}" enterkeyhint="send"><button id="ks">${t('snd')}</button></div></div><div class="full" id="kpro"></div><div class="full" id="kmod"></div><div class="hb"></div></div>
 <div class="scr app dk" id="x"><div class="sc"><div class="xh"></div><div class="xp"><div class="av">${ini(C.userName)}</div><h2>${C.userName} 🔒</h2><small>${C.userHandle}</small><p style="margin:10px 0 4px;font-size:15px">${t('priv')}</p><p style="font-size:14px;color:#71767b;margin-bottom:14px"><b style="color:#fff">${C.friends.length+(C.npcs||[]).length}</b> ${t('folg')} · <b style="color:#fff">${C.friends.length}</b> ${t('fols')}</p></div><div class="xt"><span>${t('rcm')}</span></div>${TL.map(x=>twh(x,1)).join('')}</div>
 <div class="full" id="xpf" style="background:#000"><div class="sc" id="xpc"></div></div>
 <div class="full" id="xdt" style="background:#000"><div class="sc" id="xdc" style="padding-bottom:90px"></div><div id="xci"><input id="xcin" placeholder="${t('cmt')}" enterkeyhint="send"><button id="xcs">${t('snd')}</button></div></div><div class="hb"></div></div>
@@ -553,7 +558,7 @@ async function send(){const v=$('kin').value.trim();if(!v||busy||cur==null)retur
  if(!ps.length){typing=null;busy=0;cur==id&&renderChat();pop(r.err||'busy',r.d);return}
  if(r.err=='quota')pop('quota');
  for(let i=0;i<ps.length;i++){await sleep(400+ps[i].length*35);H[id].push({me:0,text:ps[i],time:nowT()});saveH();typing=i<ps.length-1?id:null;cur==id&&renderChat()}
- typing=null;busy=0;if(r.text)maybeExtract(id)}
+ typing=null;busy=0;if(r.text)maybeExtract(id);renderChats()}
 /* ================= 长期记忆 / 关系系统 / 男主主页 ================= */
 const MEMKEY='dreamPhoneMem_v1';
 let MEM={};try{MEM=JSON.parse(localStorage.getItem(MEMKEY)||'null')||{};}catch(e){MEM={}}
@@ -646,12 +651,26 @@ async function maybeExtract(id){
 let kproId=null,modMode=null,modEditId=null,modForm=null;
 function openKPro(id){kproId=id;renderKPro();$('kpro').classList.add('on')}
 function openChat(id){cur=id;const f=C.friends[id];$('kav').innerHTML=av(f);$('knm').textContent=f.name;renderChat();$('kc').classList.add('on')}
+function renderChats(){
+ const el=$('kkc');if(!el)return;
+ el.innerHTML=C.friends.map(f=>{const h=H[f.id]||[];const last=h[h.length-1];const prev=last?L(last.text):(f.greet?L(f.greet):'');return `<div class="kr" data-chat="${f.id}">${av(f)}<div style="flex:1;min-width:0"><b>${esc(f.name)}</b><small class="kprev">${esc(prev)}</small></div></div>`}).join('');
+ el.querySelectorAll('[data-chat]').forEach(r=>r.onclick=()=>openChat(+r.dataset.chat));
+}
+function switchKTab(tab){
+ const chat=tab==='chat';
+ $('kkc').style.display=chat?'block':'none';
+ $('kkf').style.display=chat?'none':'block';
+ $('kkh').textContent=chat?t('chats'):t('fr');
+ $('kt-chat').classList.toggle('on',chat);
+ $('kt-fr').classList.toggle('on',!chat);
+ if(chat)renderChats();
+}
 function renderKPro(){
  const id=kproId;if(id==null)return;const f=C.friends[id],md=memGet(id),st=stageOf(id);
  const seg=STAGES.map(s=>`<span data-stg="${s.k}" class="${s.k===st.k?'on':''}">${L(s)}</span>`).join('');
  $('kpro').innerHTML=
- `<div class="kp-tb"><span id="kpb" style="cursor:pointer">‹</span><span>${esc(f.name)}</span></div>
-  <div class="kp-scroll">
+ `<div class="sc" style="padding-bottom:40px">
+   <div class="kp-bar"><b id="kpb">‹</b><span>${esc(f.name)}</span></div>
    <div class="kp-hd">${av(f)}<h2>${esc(f.name)}</h2><small>${esc(f.handle)}</small></div>
    <div class="kp-act"><button class="kp-chat" id="kpc">${t('chat')}</button><button class="kp-call" id="kpcall">${t('call')}</button></div>
    <div class="kp-sec"><div class="hd">${t('stage')}</div><div class="seg">${seg}</div></div>
@@ -661,9 +680,9 @@ function renderKPro(){
     <div class="mr" data-mod="notes"><div><b>${t('profile')}</b><small>${md.notes.length?md.notes.length+' '+t('cnt'):t('emptyNote')}</small></div><em>›</em></div>
    </div>
   </div>`;
- $('kpb').onclick=()=>{$('kpro').classList.remove('on');kproId=null};
+ $('kpb').onclick=()=>{$('kpro').classList.remove('on');kproId=null;renderChats()};
  $('kpc').onclick=()=>openChat(id);
- $('kpcall').onclick=()=>{$('kpro').classList.remove('on');startCall()};
+ $('kpcall').onclick=()=>{$('kpro').classList.remove('on');kproId=null;startCall()};
  $('kpro').querySelectorAll('[data-stg]').forEach(s=>s.onclick=()=>{memGet(id).stage=s.dataset.stg;saveMem();renderKPro()});
  $('kpro').querySelectorAll('[data-mod]').forEach(r=>r.onclick=()=>openMod(r.dataset.mod));
 }
@@ -687,7 +706,7 @@ function renderMod(){
   const list=items.length?items.map((it,i)=>itemHtml(it,i)).join(''):`<div class="empty">${modMode==='mem'?t('emptyMem'):modMode==='ev'?t('emptyEv'):t('emptyNote')}</div>`;
   body=orig+`<div class="kp-sec" style="margin:0">${list}</div>`;
  }
- $('kmod').innerHTML=`<div class="km-tb"><span id="kmb" style="cursor:pointer">‹</span><span>${modTitle()}</span></div><div class="km-scroll">${body}${modForm?'':`<div style="padding:14px 16px;display:flex;gap:10px">${modMode==='mem'?`<button id="mx" class="b2">${t('extract')}</button>`:''}<button id="madd" class="b2 pr">${t('add')}</button></div>`}</div>`;
+ $('kmod').innerHTML=`<div class="sc" style="padding-bottom:40px"><div class="kp-bar"><b id="kmb">‹</b><span>${modTitle()}</span></div>${body}${modForm?'':`<div style="padding:14px 16px;display:flex;gap:10px">${modMode==='mem'?`<button id="mx" class="b2">${t('extract')}</button>`:''}<button id="madd" class="b2 pr">${t('add')}</button></div>`}</div>`;
  $('kmb').onclick=()=>{$('kmod').classList.remove('on');renderKPro()};
  if(modForm){
   if(modMode==='mem')$('mf-cat').value=(modEditId!=null?modItems().find(x=>x.id===modEditId)?.cat:'pref')||'pref';
@@ -739,7 +758,11 @@ function bind(){
  /* kakao */
  $('me').onclick=()=>$('kp').classList.add('on');$('kx').onclick=()=>$('kp').classList.remove('on');
  document.querySelectorAll('[data-f]').forEach(r=>r.onclick=()=>openKPro(+r.dataset.f));
- $('kb2').onclick=()=>{$('kc').classList.remove('on');cur=null};
+ $('kb2').onclick=()=>{$('kc').classList.remove('on');cur=null;renderChats()};
+ $('km2').onclick=()=>{const id=cur;if(id==null)return;$('kc').classList.remove('on');cur=null;openKPro(id)};
+ $('kt-chat').onclick=()=>switchKTab('chat');
+ $('kt-fr').onclick=()=>switchKTab('fr');
+ renderChats();
  $('ks').onclick=send;$('kin').onkeydown=e=>e.key=='Enter'&&send();
  $('kb').onclick=e=>{const b=e.target.closest('[data-tr]');if(b)trMsg(+b.dataset.tr)};
  /* instagram */
