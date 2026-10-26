@@ -250,14 +250,41 @@ video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 #xci{position:absolute;left:0;right:0;bottom:0;background:#000;border-top:.5px solid #2f3336;padding:8px 10px calc(14px + env(safe-area-inset-bottom));display:flex;gap:8px;z-index:26}
 #xci input{flex:1;border:0;background:#16181c;color:#fff;border-radius:18px;padding:9px 14px;font-size:16px;outline:0}#xci button{border:0;background:#1d9bf0;color:#fff;border-radius:18px;padding:0 14px;font-weight:600}[data-p]{cursor:pointer}
 .bk{color:#007aff;font-size:17px;padding:8px 16px;cursor:pointer}
+/* kakao 男主主页 + 记忆/事件/人格模块 */
+#kpro{background:#f2f2f7;color:#000;z-index:24}#kmod{background:#f2f2f7;color:#000;z-index:26}
+.kp-tb{position:sticky;top:0;background:#f2f2f7;z-index:2;padding:calc(var(--top) + 8px) 16px 8px;display:flex;align-items:center;gap:10px;font-weight:600;font-size:17px;border-bottom:.5px solid #e5e5ea}
+.kp-scroll{position:absolute;inset:0;overflow:auto;padding-bottom:70px}
+.kp-hd{text-align:center;padding:20px 16px 8px}.kp-hd .av{width:80px;height:80px;border-radius:27px;margin:0 auto 10px;font-size:32px}
+.kp-hd h2{font-size:21px;margin:6px 0 2px}.kp-hd small{color:#8e8e93;font-size:13px}
+.kp-act{display:flex;gap:10px;padding:14px 16px 6px}
+.kp-act button{flex:1;border:0;border-radius:10px;padding:11px;font-size:15px;font-weight:600;cursor:pointer}
+.kp-chat{background:#fee500;color:#000}.kp-call{background:#fff;color:#000;border:1px solid #d9d9de}
+.kp-sec{background:#fff;border-radius:12px;margin:0 16px 14px;overflow:hidden}
+.kp-sec>.hd{font-size:14px;color:#8e8e93;padding:12px 16px 6px;font-weight:600}
+.seg{display:flex;gap:6px;padding:6px 12px 12px}
+.seg span{flex:1;text-align:center;border:1px solid #e5e5ea;border-radius:9px;padding:8px 0;font-size:13px;color:#8e8e93;cursor:pointer;white-space:nowrap}
+.seg span.on{background:#007aff;border-color:#007aff;color:#fff;font-weight:600}
+.mr{display:flex;align-items:center;gap:12px;padding:13px 16px;font-size:16px;border-bottom:.5px solid #e5e5ea;cursor:pointer}.mr:last-child{border:0}
+.mr small{color:#8e8e93;font-size:12px;display:block}.mr em{margin-left:auto;color:#c7c7cc;font-style:normal;font-size:18px}
+.km-tb{position:sticky;top:0;background:#f2f2f7;z-index:2;padding:calc(var(--top) + 8px) 16px 8px;display:flex;align-items:center;gap:10px;font-weight:600;font-size:17px;border-bottom:.5px solid #e5e5ea}
+.km-scroll{position:absolute;inset:0;overflow:auto;padding-bottom:80px}
+.mit{padding:13px 16px;border-bottom:.5px solid #e5e5ea;font-size:15px;line-height:1.4}.mit:last-child{border:0}
+.mit .cat{display:inline-block;background:#e8f1ff;color:#007aff;border-radius:6px;font-size:11px;padding:2px 7px;margin-right:6px;vertical-align:1px}
+.mit .pend{color:#b25000;font-size:11px;margin-right:6px}
+.mit .act{float:right;color:#007aff;font-size:13px;cursor:pointer;margin-left:10px}
+.empty{padding:26px 16px;text-align:center;color:#9a9aa0;font-size:14px}
+.km-form{padding:16px}
+.tf{width:100%;border:0;border-radius:10px;background:#fff;font-size:15px;padding:12px;outline:0;color:#000;margin-bottom:10px;min-height:70px;resize:vertical;display:block}
+.fsel{width:100%;border:0;border-radius:10px;background:#fff;font-size:15px;padding:12px;outline:0;color:#000;margin-bottom:10px;-webkit-appearance:none;appearance:none;display:block}
+.chk{display:flex;align-items:center;gap:8px;font-size:14px;color:#3c3c43;margin:2px 0 12px}.chk input{width:18px;height:18px}
 </style></head>
 <body><div id="ph"></div>
 <script>
 const C=CONFIG,I=C.instagram,S=C.spotify,P=document.getElementById('ph');
 let lang='ko';try{lang=localStorage.getItem('lg')||'ko'}catch(e){}
 const L=x=>x&&typeof x=='object'&&!Array.isArray(x)?(x[lang]??x.ko):x;
-const T={ko:{unlock:'위로 쓸어서 열기',wx:'날씨',cal:'캘린더',srch:'검색',noev:'일정 없음',hi:'최고',lo:'최저',rec:'최근 통화',fav:'즐겨찾기',ct:'연락처',kp:'키패드',out:'발신',inn:'수신',mis:'부재중',fr:'친구',msg:'메시지 입력',snd:'전송',cls:'닫기',priv:'비공개 계정 · 팔로워 승인제',vcall:'Instagram 비디오 통화',ring:'전화 오는 중…',vin:'메시지 보내기…',songs:'곡',st:'설정',air:'비행기 모드',wifi:'Wi-Fi',bt:'블루투스',nt:'알림',gen:'일반',dsp:'디스플레이 및 밝기',lr:'언어 및 지역',lg:'언어',ak:'AI API',rcm:'추천',cmts:'댓글',cmt:'댓글 달기…',now:'방금',pst:'게시물',mut:(n)=>`${n}님과 서로 팔로우`,nm:'이름',url:'URL (예: https://example.com)',key:'API 키',ml:'모델 불러오기',ld:'불러오는 중…',mdl:'모델',noapi:'저장된 API가 없어요',fail:'실패',cfm:'삭제할까요?',need:'URL, API 키, 모델을 입력하세요',got:'개 모델',sv:'저장',svd:'저장됨 ✓',busy:'상대방이 바쁘거나 쉬는 중이에요.\n잠시 후 다시 와주세요',nokey:'AI API를 설정해주세요.\n설정 → AI API',pub:'공용 크레딧',own:'내 API',quota:'오늘의 공용 크레딧을 다 썼어요.\n설정에서 내 API를 넣으면 계속 대화할 수 있어요',slow:'너무 빨라요. 잠깐만 기다려 주세요',left:'남은 횟수',relay:'프록시 경유 (CORS 오류 시)',keyerr:'API 키가 올바르지 않아요',down:'AI 서버에 연결할 수 없어요',code:'액세스 코드(선택)',codeerr:'액세스 코드가 올바르지 않아요',ok:'확인',folg:'팔로잉',fols:'팔로워',ago:(m)=>m<60?`${m}분 전`:m<1440?`${Math.round(m/60)}시간 전`:`${Math.round(m/1440)}일 전`,dt:(d)=>`10월 ${d}일`},
-zh:{unlock:'向上滑动解锁',wx:'天气',cal:'日历',srch:'搜索',noev:'今天无日程',hi:'最高',lo:'最低',rec:'最近通话',fav:'个人收藏',ct:'通讯录',kp:'拨号键盘',out:'呼出',inn:'呼入',mis:'未接',fr:'好友',msg:'输入消息',snd:'发送',cls:'关闭',priv:'私密账号 · 需批准关注',vcall:'Instagram 视频通话',ring:'来电中…',vin:'发消息…',songs:'首',st:'设置',air:'飞行模式',wifi:'无线局域网',bt:'蓝牙',nt:'通知',gen:'通用',dsp:'显示与亮度',lr:'语言与地区',lg:'语言',ak:'AI 接口(API)',rcm:'为你推荐',cmts:'评论',cmt:'发表评论…',now:'刚刚',pst:'帖子',mut:(n)=>`与 ${n} 互相关注`,nm:'名称',url:'URL (如 https://example.com)',key:'API 密钥',ml:'拉取模型',ld:'拉取中…',mdl:'模型',noapi:'还没有保存的 API',fail:'失败',cfm:'确定删除？',need:'请填写 URL、密钥和模型',got:'个模型',sv:'保存',svd:'已保存 ✓',busy:'对方在忙碌/休息中\n一会儿再来吧',nokey:'请先配置 AI 接口\n设置 → AI 接口(API)',pub:'公共额度',own:'自己的 API',quota:'今天的公共额度用完了。\n在设置里填入自己的 API 可以继续聊',slow:'发得太快了，稍等一下',left:'剩余次数',relay:'通过代理转发（CORS 报错时勾选）',keyerr:'API 密钥不正确',down:'连不上 AI 服务',code:'访问码(可选)',codeerr:'访问码不正确',ok:'好',folg:'正在关注',fols:'关注者',ago:(m)=>m<60?`${m}分钟前`:m<1440?`${Math.round(m/60)}小时前`:`${Math.round(m/1440)}天前`,dt:(d)=>`10月${d}日`}};
+const T={ko:{unlock:'위로 쓸어서 열기',wx:'날씨',cal:'캘린더',srch:'검색',noev:'일정 없음',hi:'최고',lo:'최저',rec:'최근 통화',fav:'즐겨찾기',ct:'연락처',kp:'키패드',out:'발신',inn:'수신',mis:'부재중',fr:'친구',msg:'메시지 입력',snd:'전송',cls:'닫기',priv:'비공개 계정 · 팔로워 승인제',vcall:'Instagram 비디오 통화',ring:'전화 오는 중…',vin:'메시지 보내기…',songs:'곡',st:'설정',air:'비행기 모드',wifi:'Wi-Fi',bt:'블루투스',nt:'알림',gen:'일반',dsp:'디스플레이 및 밝기',lr:'언어 및 지역',lg:'언어',ak:'AI API',rcm:'추천',cmts:'댓글',cmt:'댓글 달기…',now:'방금',pst:'게시물',mut:(n)=>`${n}님과 서로 팔로우`,nm:'이름',url:'URL (예: https://example.com)',key:'API 키',ml:'모델 불러오기',ld:'불러오는 중…',mdl:'모델',noapi:'저장된 API가 없어요',fail:'실패',cfm:'삭제할까요?',need:'URL, API 키, 모델을 입력하세요',got:'개 모델',sv:'저장',svd:'저장됨 ✓',busy:'상대방이 바쁘거나 쉬는 중이에요.\n잠시 후 다시 와주세요',nokey:'AI API를 설정해주세요.\n설정 → AI API',pub:'공용 크레딧',own:'내 API',quota:'오늘의 공용 크레딧을 다 썼어요.\n설정에서 내 API를 넣으면 계속 대화할 수 있어요',slow:'너무 빨라요. 잠깐만 기다려 주세요',left:'남은 횟수',relay:'프록시 경유 (CORS 오류 시)',keyerr:'API 키가 올바르지 않아요',down:'AI 서버에 연결할 수 없어요',code:'액세스 코드(선택)',codeerr:'액세스 코드가 올바르지 않아요',ok:'확인',folg:'팔로잉',fols:'팔로워',ago:(m)=>m<60?`${m}분 전`:m<1440?`${Math.round(m/60)}시간 전`:`${Math.round(m/1440)}일 전`,dt:(d)=>`10월 ${d}일`,chat:'채팅',call:'통화',stage:'관계 단계',mem:'그의 기억',ev:'함께한 일',profile:'인격 프로필',add:'추가',edit:'편집',del:'삭제',cnt:'개',emptyMem:'아직 중요한 기억이 없어요',emptyEv:'아직 함께한 일이 없어요',emptyNote:'아직 추가 설정이 없어요',orig:'원본 설정',custom:'내 추가 설정',notePh:'추가 설정을 입력…',memPh:'그녀에 대한 기억을 적어…',evPh:'함께한 일을 적어…',cat:'분류',pend:'확인 필요',extract:'지금 기억 정리',extracting:'정리 중…'},
+zh:{unlock:'向上滑动解锁',wx:'天气',cal:'日历',srch:'搜索',noev:'今天无日程',hi:'最高',lo:'最低',rec:'最近通话',fav:'个人收藏',ct:'通讯录',kp:'拨号键盘',out:'呼出',inn:'呼入',mis:'未接',fr:'好友',msg:'输入消息',snd:'发送',cls:'关闭',priv:'私密账号 · 需批准关注',vcall:'Instagram 视频通话',ring:'来电中…',vin:'发消息…',songs:'首',st:'设置',air:'飞行模式',wifi:'无线局域网',bt:'蓝牙',nt:'通知',gen:'通用',dsp:'显示与亮度',lr:'语言与地区',lg:'语言',ak:'AI 接口(API)',rcm:'为你推荐',cmts:'评论',cmt:'发表评论…',now:'刚刚',pst:'帖子',mut:(n)=>`与 ${n} 互相关注`,nm:'名称',url:'URL (如 https://example.com)',key:'API 密钥',ml:'拉取模型',ld:'拉取中…',mdl:'模型',noapi:'还没有保存的 API',fail:'失败',cfm:'确定删除？',need:'请填写 URL、密钥和模型',got:'个模型',sv:'保存',svd:'已保存 ✓',busy:'对方在忙碌/休息中\n一会儿再来吧',nokey:'请先配置 AI 接口\n设置 → AI 接口(API)',pub:'公共额度',own:'自己的 API',quota:'今天的公共额度用完了。\n在设置里填入自己的 API 可以继续聊',slow:'发得太快了，稍等一下',left:'剩余次数',relay:'通过代理转发（CORS 报错时勾选）',keyerr:'API 密钥不正确',down:'连不上 AI 服务',code:'访问码(可选)',codeerr:'访问码不正确',ok:'好',folg:'正在关注',fols:'关注者',ago:(m)=>m<60?`${m}分钟前`:m<1440?`${Math.round(m/60)}小时前`:`${Math.round(m/1440)}天前`,dt:(d)=>`10月${d}日`,chat:'聊天',call:'通话',stage:'关系阶段',mem:'他的记忆',ev:'共同事件',profile:'人格档案',add:'新增',edit:'编辑',del:'删除',cnt:'条',emptyMem:'还没有重要记忆',emptyEv:'还没有共同事件',emptyNote:'还没有补充设定',orig:'原始设定',custom:'我的补充设定',notePh:'输入补充设定…',memPh:'写下关于她的事…',evPh:'写下共同事件…',cat:'分类',pend:'待确认',extract:'现在整理记忆',extracting:'整理中…'}};
 const t=k=>T[lang][k];
 const $=i=>document.getElementById(i),esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
 const ini=n=>(n||'?').trim()[0].toUpperCase(),sleep=ms=>new Promise(r=>setTimeout(r,ms));
@@ -299,6 +326,7 @@ const SET=[['air','#ff9500','✈',1],['wifi','#007aff','📶'],['bt','#007aff','
 let cur=null,scr='lock',typing=null,busy=0,tms=[],sec=0,iv=null;
 /* ---- build UI (re-run when language changes) ---- */
 function build(){
+kproId=null;modMode=null;modForm=null;modEditId=null;
 const d=new Date(),wd=d.toLocaleDateString(lang=='ko'?'ko-KR':'zh-CN',{weekday:'long'}),w=C.weather;
 P.innerHTML=`
 <div id="al"><div class="bx"><p id="alt"></p><button id="alb">${t('ok')}</button></div></div>
@@ -316,7 +344,7 @@ P.innerHTML=`
  <div class="kr" id="me"><div class="av" style="background:#90a4ae">${ini(C.userName)}</div><div>${C.userName}</div></div><div class="cg">${t('fr')} ${C.friends.length}</div>
  ${C.friends.map(f=>`<div class="kr" data-f="${f.id}">${av(f)}<div>${f.name}<small>${L(f.status)}</small></div></div>`).join('')}</div>
  <div class="full" id="kp"><div class="av" style="background:#90a4ae">${ini(C.userName)}</div><h2>${C.userName}</h2><p style="margin-top:80px;font-size:15px;cursor:pointer" id="kx">✕ ${t('cls')}</p></div>
- <div class="full" id="kc"><div class="kh"><span id="kb2" style="font-size:26px;cursor:pointer">‹</span><span id="kav"></span><span id="knm"></span></div><div id="kb"></div><div id="ki"><input id="kin" placeholder="${t('msg')}" enterkeyhint="send"><button id="ks">${t('snd')}</button></div></div><div class="hb"></div></div>
+ <div class="full" id="kc"><div class="kh"><span id="kb2" style="font-size:26px;cursor:pointer">‹</span><span id="kav"></span><span id="knm"></span></div><div id="kb"></div><div id="ki"><input id="kin" placeholder="${t('msg')}" enterkeyhint="send"><button id="ks">${t('snd')}</button></div></div><div class="full" id="kpro"></div><div class="full" id="kmod"></div><div class="hb"></div></div>
 <div class="scr app dk" id="x"><div class="sc"><div class="xh"></div><div class="xp"><div class="av">${ini(C.userName)}</div><h2>${C.userName} 🔒</h2><small>${C.userHandle}</small><p style="margin:10px 0 4px;font-size:15px">${t('priv')}</p><p style="font-size:14px;color:#71767b;margin-bottom:14px"><b style="color:#fff">${C.friends.length+(C.npcs||[]).length}</b> ${t('folg')} · <b style="color:#fff">${C.friends.length}</b> ${t('fols')}</p></div><div class="xt"><span>${t('rcm')}</span></div>${TL.map(x=>twh(x,1)).join('')}</div>
 <div class="full" id="xpf" style="background:#000"><div class="sc" id="xpc"></div></div>
 <div class="full" id="xdt" style="background:#000"><div class="sc" id="xdc" style="padding-bottom:90px"></div><div id="xci"><input id="xcin" placeholder="${t('cmt')}" enterkeyhint="send"><button id="xcs">${t('snd')}</button></div></div><div class="hb"></div></div>
@@ -349,7 +377,7 @@ bind();show(scr);tick();if(ix>=0)ui();
 function show(id){scr=id;P.querySelectorAll('.scr').forEach(s=>s.classList.toggle('on',s.id==id));P.classList.toggle('dark',['ph2','kk','st'].includes(id))}
 function tick(){const d=new Date(),h=String(d.getHours()).padStart(2,'0'),m=String(d.getMinutes()).padStart(2,'0');const a=$('lt');if(a){a.textContent=h+':'+m;$('ld').textContent=d.toLocaleDateString(lang=='ko'?'ko-KR':'zh-CN',{month:'long',day:'numeric',weekday:'long'});$('sbt').textContent=h+':'+m}}
 setInterval(tick,10000);
-const home=()=>{endCall();cur=null;['xpf','xdt'].forEach(i=>{const p=$(i);p&&p.classList.remove('on')});curP=null;show('home')};
+const home=()=>{endCall();cur=null;['xpf','xdt','kc','kpro','kmod'].forEach(i=>{const p=$(i);p&&p.classList.remove('on')});curP=null;kproId=null;show('home')};
 /* ---- AI chat ---- */
 const pop=(k,d)=>{$('alt').textContent=t(k)+(d?'\n('+d+')':'');$('al').classList.add('on')};
 const LS={g:k=>{try{return localStorage.getItem(k)}catch(e){return null}},s:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}}};
@@ -409,11 +437,15 @@ async function chatComplete(messages){
  return directChat(messages,a);
 }
 async function ai(f){
- const sys=`你是${f.name}，正在KakaoTalk上和「${C.userName}」聊天。你们是彼此有好感、关系正在发展的恋人。不要编造你们共同的过去事件、具体日期，也不要编造她的年龄、职业、外貌、家人等她没说过的信息；不知道的事就顺着她说的话聊，或自然地问她。\n你的人设：${f.persona.replaceAll('{u}',C.userName)}\n说话规则：\n1. 直接回应她刚说的那句话，接住情绪和细节，不说无关套话。\n2. 口语化、自然、随意，像恋人日常聊天，不要正式、不要书面语、不要像机器人。\n3. 直白、简单、不绕弯，直接说出按人设的感受和想法，可以有自己的偏好。\n4. 不用比喻、暗示、小说式描写、括号动作描写。\n5. 不提具体时间点；不要使用「不过」。\n6. 保持人设，最近几次回复不要重复句型。\n7. 回复句数自由：可以只回1条，也可以回2到4条，自然随机，不要每次固定发3条。\n8. 每条消息是一个完整的意思，不要发半句话；确实要补充时才发下一条，用换行隔开。\n9. 不要用逗号或句号把几个意思连在一条消息里。\n10. 称呼按各人设来，不要统一叫「姐姐」。\n回复语言：${lang=='ko'?'韩语（自然的반말）':'简体中文（口语化）'}。`;
+ const id=f.id,md=memGet(id),st=stageOf(id);
+ const notes=(md.notes||[]).slice(-12).map(n=>'- '+n.text).join('\n');
+ const rel=buildRelBlock(f,md);
+ const sys=`你是${f.name}，正在KakaoTalk上和「${C.userName}」聊天。${STAGE_P[st.k][lang]}\n你们当前的关系阶段是「${L(st)}」。\n不要编造你们共同的过去事件、具体日期，也不要编造她的年龄、职业、外貌、家人等她没说过的信息；不知道的事就顺着她说的话聊，或自然地问她。\n\n【核心人设·不可违背】\n${f.persona.replaceAll('{u}',C.userName)}\n\n${notes?`【用户补充设定】\n${notes}\n\n`:''}${rel}【说话规则】\n1. 直接回应她刚说的那句话，接住情绪和细节，不说无关套话。\n2. 口语化、自然、随意，像日常聊天；距离感和亲密度要符合当前关系阶段。\n3. 直白、简单，直接说出按人设的感受和想法，可以有自己的偏好和不同意见，不必每次都迎合她。\n4. 不用比喻、暗示、小说式描写、括号动作描写。\n5. 不提具体时间点；不要使用「不过」。\n6. 保持人设，最近几次回复不要重复句型。\n7. 回复条数自由：根据语境、情绪和人设自然决定发1到6条，不要固定条数，不要为凑数硬拆或加废话。\n8. 每条消息是一个完整的意思，不要发半句话；确实要补充时才发下一条，用换行隔开。\n9. 不要用逗号或句号把几个意思连在一条消息里。\n10. 称呼按各人设来，不要统一叫「姐姐」。\n11. 不要输出序号、编号、项目符号、JSON、数组或引号。\n12. 如果「你记得的关于她的事」或「共同事件」和当前话题相关，就自然地接续、追问或根据她的喜好调整，但不要每次都复述「我记得你说过」这类话；无关时不要强行提起；不确定的事宁可自然地问，不要假装确定。\n回复语言：${lang=='ko'?'韩语（自然的반말）':'简体中文（口语化）'}。`;
  const m=[{role:'system',content:sys}];
- H[f.id].forEach(x=>{const r=x.me?'user':'assistant',tx=L(x.text),l=m[m.length-1];if(l.role==r)l.content+='\n'+tx;else m.push({role:r,content:tx})});
- while(m[1]&&m[1].role!='user')m.splice(1,1);
- m.push({role:'user',content:lang=='ko'?'（用韩语自然的반말回复，不要用요/습니다/ㅂ니다结尾。句数1到4条自由，不要每次固定条数。每个短句单独一行，用换行分开，不要用逗号或句号把几个意思连在一起。每条意思完整。只输出消息内容，不要解释。）':'（用简体中文口语回复。句数1到4条自由，不要每次固定条数。每个短句单独一行，用换行分开，不要用逗号或句号把几个意思连在一起，每条不超过10个字且意思完整。不要出现韩语单词。只输出消息内容，不要解释。）'});
+ const hist=H[id].slice(-24);
+ hist.forEach(x=>{const r=x.me?'user':'assistant',tx=L(x.text),l=m[m.length-1];if(l.role===r)l.content+='\n'+tx;else m.push({role:r,content:tx})});
+ while(m[1]&&m[1].role!=='user')m.splice(1,1);
+ m.push({role:'user',content:lang=='ko'?'（用韩语自然的반말回复，不要用요/습니다/ㅂ니다结尾。每个短句单独一行，用换行分开，不要用逗号或句号把几个意思连在一起。每条意思完整，条数按语境自然决定。只输出消息内容，不要解释。）':'（用简体中文口语回复。每个短句单独一行，用换行分开，不要用逗号或句号把几个意思连在一起，每条意思完整，条数按语境自然决定。不要出现韩语单词。只输出消息内容，不要解释。）'});
  return chatComplete(m);
 }
 function renderApi(){const l=$('apl');l.innerHTML=apis.length?apis.map(a=>`<div class="sr2" data-a="${a.id}"><i style="background:${a.id==actId?'#34c759':'#c7c7cc'}">${a.id==actId?'✓':''}</i><div style="flex:1;min-width:0"><div>${esc(a.name)}</div><small style="color:#8e8e93;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(a.model)}</small></div><span data-e="${a.id}" style="padding:6px 8px">✎</span><span data-d="${a.id}" style="padding:6px 8px">🗑</span></div>`).join(''):`<div class="sr2" style="color:#8e8e93">${t('noapi')}</div>`;
@@ -494,14 +526,194 @@ function renderChat(){const f=C.friends[cur];if(!f)return;const h=H[cur],lm=h.ma
   return `<div class="bl">${av(f)}<div><small>${f.name}</small><div class="rw"><p>${esc(L(m.text))}</p><s>${L(m.time)}</s></div>${tr}</div></div>`;
  }).join('')+(typing==cur?`<div class="bl">${av(f)}<div><div class="rw"><p class="ty">• • •</p></div></div></div>`:'');
  $('kb').scrollTop=1e6}
+function parseBubbles(txt){
+ let s=String(txt||'').trim();
+ if(!s)return [];
+ s=s.replace(/^```[a-z]*\s*/i,'').replace(/```\s*$/,'').trim();
+ if(/^\[[\s\S]*\]$/.test(s)){
+  try{const j=JSON.parse(s);if(Array.isArray(j))s=j.map(x=>typeof x==='string'?x:(x&&(x.text||x.content||x.message))||'').join('\n')}catch(e){}
+ }else if(/^["']/.test(s)){
+  try{const j=JSON.parse(s);if(typeof j==='string')s=j}catch(e){}
+ }
+ let ps=s.split(/\r?\n+/).map(x=>x.trim()
+  .replace(/^["'“”‘’`]+|["'“”‘’`]+$/g,'')
+  .replace(/^(?:消息|回复)\s*\d*\s*[:：]\s*/,'')
+  .replace(/^[（(]?\s*\d{1,2}\s*[）).、:：\-–—]\s*/,'')
+  .replace(/^[①-⑳]\s*/,'')
+  .replace(/^[-*•·]\s*/,'')
+  .replace(/^["'“”‘’`]+|["'“”‘’`]+$/g,'')
+  .trim()).filter(x=>x&&!/^[\[\]{},]+$/.test(x));
+ if(ps.length>6)ps=ps.slice(0,5).concat([ps.slice(5).join(' ')]); // 超出安全上限时合并，不丢内容
+ return ps;
+}
 async function send(){const v=$('kin').value.trim();if(!v||busy||cur==null)return;const id=cur,f=C.friends[id];
  H[id].push({me:1,text:v,time:nowT()});saveH();$('kin').value='';renderChat();busy=1;await sleep(700);typing=id;cur==id&&renderChat();
- let r=await ai(f),ps=r.text?r.text.split(/\n+/).map(x=>x.trim()).filter(Boolean).slice(0,3):[];
+ let r=await ai(f),ps=r.text?parseBubbles(r.text):[];
  if(!ps.length&&f.fb&&['busy','down','quota','slow'].includes(r.err)){const fb=L(f.fb),arr=Array.isArray(fb)?fb:[];if(arr.length)ps=arr.slice(0,2).map(String)}
  if(!ps.length){typing=null;busy=0;cur==id&&renderChat();pop(r.err||'busy',r.d);return}
  if(r.err=='quota')pop('quota');
  for(let i=0;i<ps.length;i++){await sleep(400+ps[i].length*35);H[id].push({me:0,text:ps[i],time:nowT()});saveH();typing=i<ps.length-1?id:null;cur==id&&renderChat()}
- typing=null;busy=0}
+ typing=null;busy=0;if(r.text)maybeExtract(id)}
+/* ================= 长期记忆 / 关系系统 / 男主主页 ================= */
+const MEMKEY='dreamPhoneMem_v1';
+let MEM={};try{MEM=JSON.parse(localStorage.getItem(MEMKEY)||'null')||{};}catch(e){MEM={}}
+const memGet=id=>{const d=MEM[id];if(d&&typeof d==='object'){d.aff=d.aff||{familiar:0,trust:0,close:0,mood:'neutral',unresolved:[],lastChange:'',lastAt:0};d.mem=d.mem||[];d.ev=d.ev||[];d.notes=d.notes||[];return d}const nd={stage:'flirt',aff:{familiar:0,trust:0,close:0,mood:'neutral',unresolved:[],lastChange:'',lastAt:0},mem:[],ev:[],notes:[],upTo:0};MEM[id]=nd;return nd};
+const saveMem=()=>{try{localStorage.setItem(MEMKEY,JSON.stringify(MEM))}catch(e){}};
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,8);
+const normT=t=>String(t||'').replace(/[^\p{L}\p{N}]+/gu,'').toLowerCase();
+const STAGES=[
+ {k:'stranger',ko:'낯선 사이',zh:'陌生'},
+ {k:'friend',ko:'친구',zh:'朋友'},
+ {k:'flirt',ko:'썸',zh:'暧昧'},
+ {k:'couple',ko:'연인',zh:'情侣'}
+];
+const STAGE_P={
+ stranger:{ko:'지금은 서로 알아가는 단계야. 거리를 두고 조심스럽게, 아직 친밀감이나 공통의 과거를 당연하게 여기지 마.',zh:'现在是互相了解的阶段。保持距离，谨慎、慢慢了解，不默认你们有亲密关系或共同经历。'},
+ friend:{ko:'지금은 편한 친구 사이야. 자연스럽고 친근하게, 장난도 치고 챙겨주지만 억지로 연애 감정을 드러내지 마.',zh:'现在是自然的朋友关系。熟悉、能关心、能开玩笑，但不强行表现恋爱意味。'},
+ flirt:{ko:'지금은 서로 호감이 있는 단계야. 살짝 설레는 말이나 가벼운 질투, 먼저 다가가는 모습이 자연스럽지만, 매번 설레는 말만 하지는 마.',zh:'现在是互相有好感、暧昧的阶段。可以试探、在意、轻微吃醋或主动靠近，但要符合角色个性，不要每句话都暧昧。'},
+ couple:{ko:'지금은 안정된 연인 사이야. 일상적인 다정함과 감정 표현이 자연스럽지만, 각자의 성격과 경계는 그대로 유지해.',zh:'现在是稳定的情侣关系。有日常的亲密、关心和情绪交流，但保留个人性格、边界与真实反应。'}
+};
+const MEM_CAT={pref:{ko:'취향',zh:'喜好'},info:{ko:'정보',zh:'信息'},care:{ko:'신경 쓰는 일',zh:'在意的事'},follow:{ko:'후속',zh:'需跟进'},event:{ko:'공동 경험',zh:'共同经历'},other:{ko:'기타',zh:'其他'}};
+function stageOf(id){const md=memGet(id);return STAGES.find(s=>s.k===md.stage)||STAGES[2]}
+function recentUserWords(id){const h=H[id]||[];let s='';for(let i=h.length-1;i>=0&&h.length-i<=4;i--){if(h[i].me)s+=L(h[i].text)+' '}return new Set(s.split(/[^\p{L}\p{N}]+/u).filter(Boolean))}
+function buildRelBlock(f,md){
+ const now=Date.now(),words=recentUserWords(f.id);
+ const mems=(md.mem||[]).map(m=>{let s=0;const ws=String(m.text||'').split(/[^\p{L}\p{N}]+/u);ws.forEach(w=>{if(words.has(w))s+=2});const age=now-(m.updated||m.created||0);if(age<3*864e5)s+=3;else if(age<14*864e5)s+=1;return{m,s}}).filter(o=>o.s>0).sort((a,b)=>b.s-a.s).slice(0,8);
+ const memBlock=mems.map(o=>'- '+L(MEM_CAT[o.m.cat]||MEM_CAT.other)+'：'+o.m.text).join('\n');
+ const evs=(md.ev||[]).slice(-5).map(e=>'- '+(e.pend?'['+t('pend')+'] ':'')+e.text).join('\n');
+ const un=((md.aff&&md.aff.unresolved)||[]).slice(-3).map(u=>'- '+u).join('\n');
+ const parts=[];
+ if(memBlock)parts.push('【你记得的关于她的事】\n'+memBlock);
+ if(evs)parts.push('【你们之间真实发生或约定过的共同事件】\n'+evs);
+ if(un)parts.push('【尚未解决/之后需要跟进的话题】\n'+un);
+ return parts.length?parts.join('\n\n')+'\n\n':'';
+}
+function parseJsonLoose(s){
+ s=String(s||'').replace(/```[a-z]*/gi,'').replace(/```/g,'').trim();
+ const a=s.indexOf('['),b=s.indexOf('{');
+ let start=-1,open='',close='';
+ if(b>=0&&(b<a||a<0)){start=b;open='{';close='}'}
+ else if(a>=0){start=a;open='[';close=']'}
+ if(start<0)return null;
+ let depth=0;for(let i=start;i<s.length;i++){const c=s[i];if(c===open)depth++;else if(c===close){depth--;if(depth===0){try{return JSON.parse(s.slice(start,i+1))}catch(e){return null}}}}
+ return null;
+}
+async function doExtract(id){
+ const md=memGet(id),h=H[id]||[];
+ const from=md.upTo||0;
+ const win=h.slice(from,from+16).map(x=>(x.me?'用户':'男主')+'：'+L(x.text)).join('\n');
+ if(!win.trim())return{ok:false};
+ const sys='你是对话记忆整理助手。根据下面这段真实聊天记录提取值得长期记住的信息。严格只依据对话内容：不得编造用户没说过的信息，不得把AI的猜测当成事实。\n只输出一个JSON对象（不要markdown代码块、不要解释），格式：\n{"mem":[{"cat":"pref|info|care|follow|event|other","text":"记忆内容（第三人称、一句话、简洁）","conf":true}],"ev":[{"text":"真实发生或明确约定、之后需要跟进的事（简短）","pend":false}],"rel":{"familiar":0,"trust":0,"close":0,"reason":"变化原因"}}\n- mem 只要真正有长期价值的（她的喜好、个人信息、在意的事、目标、需跟进的事、共同经历），普通闲聊不要记，最多5条；conf 表示是否确定。\n- ev 最多3条；不确定是否真的发生过就 pend:true，无法确定日期就不要写日期。\n- rel 里 familiar/trust/close 每个取 -8 到 8 的整数；只有当你确信这段对话明显改变了关系时才写非零，否则都写0；reason 用一句话说明（没有变化就写空字符串）。';
+ const r=await chatComplete([{role:'system',content:sys},{role:'user',content:'聊天记录：\n'+win}]);
+ if(!r.text)return{ok:false};
+ const data=parseJsonLoose(r.text);
+ return{ok:!!data,data};
+}
+function applyExtract(id,data){
+ if(!data||typeof data!=='object')return;
+ const md=memGet(id),now=Date.now();
+ (Array.isArray(data.mem)?data.mem:[]).forEach(nm=>{
+  const text=String(nm&&nm.text||'').trim();if(text.length<2||text.length>220)return;
+  const cat=MEM_CAT[nm.cat]?nm.cat:'other';
+  const dup=md.mem.find(m=>normT(m.text)===normT(text));
+  if(dup){dup.text=text;dup.cat=cat;dup.updated=now;if(nm.conf)dup.conf=true}
+  else md.mem.push({id:uid(),cat,text,src:'ai',conf:nm.conf!==false,created:now,updated:now});
+  if(md.mem.length>60)md.mem=md.mem.slice(-60);
+ });
+ (Array.isArray(data.ev)?data.ev:[]).forEach(ne=>{
+  const text=String(ne&&ne.text||'').trim();if(text.length<2||text.length>180)return;
+  const dup=md.ev.find(e=>normT(e.text)===normT(text));
+  if(dup){dup.text=text;dup.pend=!!ne.pend;dup.updated=now}
+  else md.ev.push({id:uid(),text,pend:!!ne.pend,time:now,from:'ai',created:now,updated:now});
+  if(md.ev.length>50)md.ev=md.ev.slice(-50);
+ });
+ if(data.rel&&typeof data.rel==='object'){
+  const aff=md.aff,dl=(n,l)=>Math.max(-l,Math.min(l,Math.round(Number(n)||0)));
+  const df=dl(data.rel.familiar,8),dt=dl(data.rel.trust,8),dc=dl(data.rel.close,8);
+  if(df||dt||dc){aff.familiar=Math.max(0,Math.min(100,(aff.familiar||0)+df));aff.trust=Math.max(0,Math.min(100,(aff.trust||0)+dt));aff.close=Math.max(0,Math.min(100,(aff.close||0)+dc));aff.lastChange=String(data.rel.reason||'');aff.lastAt=now}
+ }
+ saveMem();
+}
+const _ext={};
+async function maybeExtract(id){
+ const md=memGet(id);if(_ext[id])return;
+ const h=H[id]||[];if(h.length-(md.upTo||0)<12)return;
+ if(Date.now()-(md.lastX||0)<5*60*1000)return;
+ _ext[id]=1;md.lastX=Date.now();
+ try{const r=await doExtract(id);if(r.ok&&r.data)applyExtract(id,r.data)}catch(e){}
+ md.upTo=h.length;_ext[id]=0;saveMem();
+}
+let kproId=null,modMode=null,modEditId=null,modForm=null;
+function openKPro(id){kproId=id;renderKPro();$('kpro').classList.add('on')}
+function openChat(id){cur=id;const f=C.friends[id];$('kav').innerHTML=av(f);$('knm').textContent=f.name;renderChat();$('kc').classList.add('on')}
+function renderKPro(){
+ const id=kproId;if(id==null)return;const f=C.friends[id],md=memGet(id),st=stageOf(id);
+ const seg=STAGES.map(s=>`<span data-stg="${s.k}" class="${s.k===st.k?'on':''}">${L(s)}</span>`).join('');
+ $('kpro').innerHTML=
+ `<div class="kp-tb"><span id="kpb" style="cursor:pointer">‹</span><span>${esc(f.name)}</span></div>
+  <div class="kp-scroll">
+   <div class="kp-hd">${av(f)}<h2>${esc(f.name)}</h2><small>${esc(f.handle)}</small></div>
+   <div class="kp-act"><button class="kp-chat" id="kpc">${t('chat')}</button><button class="kp-call" id="kpcall">${t('call')}</button></div>
+   <div class="kp-sec"><div class="hd">${t('stage')}</div><div class="seg">${seg}</div></div>
+   <div class="kp-sec">
+    <div class="mr" data-mod="mem"><div><b>${t('mem')}</b><small>${md.mem.length?md.mem.length+' '+t('cnt'):t('emptyMem')}</small></div><em>›</em></div>
+    <div class="mr" data-mod="ev"><div><b>${t('ev')}</b><small>${md.ev.length?md.ev.length+' '+t('cnt'):t('emptyEv')}</small></div><em>›</em></div>
+    <div class="mr" data-mod="notes"><div><b>${t('profile')}</b><small>${md.notes.length?md.notes.length+' '+t('cnt'):t('emptyNote')}</small></div><em>›</em></div>
+   </div>
+  </div>`;
+ $('kpb').onclick=()=>{$('kpro').classList.remove('on');kproId=null};
+ $('kpc').onclick=()=>openChat(id);
+ $('kpcall').onclick=()=>{$('kpro').classList.remove('on');startCall()};
+ $('kpro').querySelectorAll('[data-stg]').forEach(s=>s.onclick=()=>{memGet(id).stage=s.dataset.stg;saveMem();renderKPro()});
+ $('kpro').querySelectorAll('[data-mod]').forEach(r=>r.onclick=()=>openMod(r.dataset.mod));
+}
+function openMod(mode){modMode=mode;modEditId=null;modForm=null;renderMod();$('kmod').classList.add('on')}
+function modItems(){const md=memGet(kproId);return modMode==='mem'?md.mem:modMode==='ev'?md.ev:md.notes}
+function modTitle(){return modMode==='mem'?t('mem'):modMode==='ev'?t('ev'):t('profile')}
+function renderMod(){
+ if(kproId==null)return;const f=C.friends[kproId],md=memGet(kproId);
+ let body='';
+ if(modForm){
+  body=`
+  <div class="km-form">
+   ${modMode==='mem'?`<select id="mf-cat" class="fsel">${Object.keys(MEM_CAT).map(k=>`<option value="${k}">${L(MEM_CAT[k])}</option>`).join('')}</select>`:''}
+   <textarea id="mf-text" class="tf" placeholder="${modMode==='mem'?t('memPh'):modMode==='ev'?t('evPh'):t('notePh')}"></textarea>
+   ${modMode==='ev'?`<label class="chk"><input type="checkbox" id="mf-pend">${t('pend')}</label>`:''}
+   <div style="display:flex;gap:10px"><button id="mf-c" class="b2">${t('cls')}</button><button id="mf-s" class="b2 pr">${t('sv')}</button></div>
+  </div>`;
+ } else {
+  const items=modItems();
+  const orig=modMode==='notes'?`<div class="kp-sec" style="margin:0 0 14px"><div class="hd">${t('orig')}</div><div class="mit" style="white-space:pre-wrap">${esc(f.persona.replaceAll('{u}',C.userName))}</div></div>`:'';
+  const list=items.length?items.map((it,i)=>itemHtml(it,i)).join(''):`<div class="empty">${modMode==='mem'?t('emptyMem'):modMode==='ev'?t('emptyEv'):t('emptyNote')}</div>`;
+  body=orig+`<div class="kp-sec" style="margin:0">${list}</div>`;
+ }
+ $('kmod').innerHTML=`<div class="km-tb"><span id="kmb" style="cursor:pointer">‹</span><span>${modTitle()}</span></div><div class="km-scroll">${body}${modForm?'':`<div style="padding:14px 16px;display:flex;gap:10px">${modMode==='mem'?`<button id="mx" class="b2">${t('extract')}</button>`:''}<button id="madd" class="b2 pr">${t('add')}</button></div>`}</div>`;
+ $('kmb').onclick=()=>{$('kmod').classList.remove('on');renderKPro()};
+ if(modForm){
+  if(modMode==='mem')$('mf-cat').value=(modEditId!=null?modItems().find(x=>x.id===modEditId)?.cat:'pref')||'pref';
+  if(modMode==='ev'&&modEditId!=null)$('mf-pend').checked=!!modItems().find(x=>x.id===modEditId)?.pend;
+  if(modEditId!=null)$('mf-text').value=modItems().find(x=>x.id===modEditId)?.text||'';
+  $('mf-c').onclick=()=>{modForm=null;modEditId=null;renderMod()};
+  $('mf-s').onclick=()=>modSave();
+ } else {
+  const mx=$('mx');if(mx)mx.onclick=()=>{mx.textContent=t('extracting');mx.disabled=1;doExtract(kproId).then(r=>{if(r.ok&&r.data)applyExtract(kproId,r.data);const mm=memGet(kproId);mm.upTo=(H[kproId]||[]).length;saveMem();renderMod()}).catch(()=>renderMod())};
+  $('madd').onclick=()=>{modEditId=null;modForm='add';renderMod()};
+  $('kmod').querySelectorAll('[data-ed]').forEach(b=>b.onclick=()=>{modEditId=b.dataset.ed;modForm='edit';renderMod()});
+  $('kmod').querySelectorAll('[data-de]').forEach(b=>b.onclick=()=>{const id2=b.dataset.de;if(confirm(t('cfm'))){const arr=modItems(),i=arr.findIndex(x=>x.id===id2);if(i>=0)arr.splice(i,1);saveMem();renderMod();renderKPro()}});
+ }
+}
+function itemHtml(it,i){
+ const meta=modMode==='mem'?`<span class="cat">${L(MEM_CAT[it.cat]||MEM_CAT.other)}</span>`:modMode==='ev'&&it.pend?`<span class="pend">${t('pend')}</span>`:'';
+ return `<div class="mit"><span class="act" data-ed="${it.id}">${t('edit')}</span><span class="act" data-de="${it.id}">${t('del')}</span>${meta}${esc(it.text)}</div>`;
+}
+function modSave(){
+ const txt=$('mf-text').value.trim();if(!txt){renderMod();return}
+ const arr=modItems(),now=Date.now();
+ if(modMode==='mem'){const cat=$('mf-cat').value;if(modEditId!=null){const it=arr.find(x=>x.id===modEditId);if(it){it.text=txt;it.cat=cat;it.updated=now}}else arr.push({id:uid(),cat,text:txt,src:'user',conf:true,created:now,updated:now})}
+ else if(modMode==='ev'){const pend=$('mf-pend').checked;if(modEditId!=null){const it=arr.find(x=>x.id===modEditId);if(it){it.text=txt;it.pend=pend;it.updated=now}}else arr.push({id:uid(),text:txt,pend,time:now,from:'user',created:now,updated:now})}
+ else{if(modEditId!=null){const it=arr.find(x=>x.id===modEditId);if(it){it.text=txt;it.updated=now}}else arr.push({id:uid(),text:txt,created:now,updated:now})}
+ saveMem();modForm=null;modEditId=null;renderMod();renderKPro();
+}
 /* ---- instagram call ---- */
 function startCall(){show('ig');$('inc').style.display='block';$('vc').style.display='none'}
 function endCall(){tms.forEach(clearTimeout);tms=[];clearInterval(iv);const a=$('v1');if(a){a.pause();$('v2').pause();$('cf').innerHTML='';$('vin').value=''}}
@@ -526,7 +738,7 @@ function bind(){
  P.querySelectorAll('[data-o]').forEach(el=>el.onclick=()=>{const o=el.dataset.o;if(o)o=='ig'?startCall():show(o)});
  /* kakao */
  $('me').onclick=()=>$('kp').classList.add('on');$('kx').onclick=()=>$('kp').classList.remove('on');
- document.querySelectorAll('[data-f]').forEach(r=>r.onclick=()=>{cur=+r.dataset.f;const f=C.friends[cur];$('kav').innerHTML=av(f);$('knm').textContent=f.name;renderChat();$('kc').classList.add('on')});
+ document.querySelectorAll('[data-f]').forEach(r=>r.onclick=()=>openKPro(+r.dataset.f));
  $('kb2').onclick=()=>{$('kc').classList.remove('on');cur=null};
  $('ks').onclick=send;$('kin').onkeydown=e=>e.key=='Enter'&&send();
  $('kb').onclick=e=>{const b=e.target.closest('[data-tr]');if(b)trMsg(+b.dataset.tr)};
